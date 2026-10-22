@@ -218,24 +218,25 @@ html.intro #hero-title .ln > span{transform:translateY(110%)}
 #intro .i-streaks{position:absolute;inset:0;pointer-events:none}
 #intro .i-streaks i{position:absolute;left:0;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,rgba(225,37,27,.95));transform-origin:right center;opacity:0}
 
-#intro .i-stage{position:absolute;top:50%;left:50%;width:min(64vmin,360px);aspect-ratio:1;transform:translate(-50%,-50%);perspective:900px}
+#intro .i-stage{will-change:transform;position:absolute;top:50%;left:50%;width:min(64vmin,360px);aspect-ratio:1;transform:translate(-50%,-50%);perspective:900px}
 #intro .i-logo{position:absolute;inset:0;border-radius:50%;transform-style:preserve-3d}
 #intro .i-logo img{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:screen;mix-blend-mode:plus-lighter;user-select:none;-webkit-user-drag:none}
 #intro .l-ring{-webkit-mask-image:conic-gradient(#000 var(--a,0deg),transparent 0);mask-image:conic-gradient(#000 var(--a,0deg),transparent 0)}
-#intro .l-icon,#intro .l-rgb{-webkit-mask-image:radial-gradient(circle at 48% 44%,#000 calc(var(--r,0)*1%),transparent calc(var(--r,0)*1% + 7%));mask-image:radial-gradient(circle at 48% 44%,#000 calc(var(--r,0)*1%),transparent calc(var(--r,0)*1% + 7%))}
-#intro .l-rgb{opacity:0}
+#intro .l-icon,#intro .l-rgb{clip-path:circle(0% at 48% 44%);will-change:clip-path,transform,opacity}
+#intro .l-rgb{opacity:.01}
 #intro .l-rgb.r{filter:sepia(1) saturate(9) hue-rotate(-45deg)}
 #intro .l-rgb.c{filter:sepia(1) saturate(6) hue-rotate(150deg)}
 #intro .l-word{clip-path:inset(0 86% 0 14%)}
-#intro .l-tag{opacity:0}
+#intro .l-tag{opacity:.01}
 #intro .i-scan{position:absolute;top:66%;height:14%;width:3px;left:16%;border-radius:2px;background:#fff;box-shadow:0 0 14px 3px rgba(225,37,27,.9),0 0 40px 8px rgba(225,37,27,.45);opacity:0}
 #intro .i-head{position:absolute;inset:0;pointer-events:none;opacity:0}
 #intro .i-head::before{content:"";position:absolute;left:50%;top:.6%;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#fff;box-shadow:0 0 12px 4px rgba(255,255,255,.8),0 0 34px 12px rgba(225,37,27,.85)}
 #intro .i-px{position:absolute;inset:0;pointer-events:none}
 #intro .i-px i{position:absolute;top:0;left:0;display:block}
 #intro .i-beam{position:absolute;inset:0;border-radius:50%;overflow:hidden;pointer-events:none}
-#intro .i-beam::before{content:"";position:absolute;inset:-30%;background:linear-gradient(100deg,transparent 40%,rgba(255,255,255,.9) 49%,rgba(255,255,255,.35) 52%,transparent 60%);mix-blend-mode:color-dodge;transform:translateX(var(--bx,-120%))}
-#intro .i-glow{position:absolute;inset:-2%;border-radius:50%;box-shadow:0 0 70px 10px rgba(225,37,27,.55),inset 0 0 30px rgba(225,37,27,.4);opacity:0;pointer-events:none}
+/* reflexo: faixa clara sem modo de mesclagem (color-dodge obrigava o navegador a reler e mesclar a camada inteira a cada quadro) */
+#intro .i-sheen{position:absolute;inset:-30%;background:linear-gradient(100deg,transparent 42%,rgba(255,255,255,.34) 49%,rgba(255,255,255,.12) 52%,transparent 58%);transform:translateX(-120%);will-change:transform}
+#intro .i-glow{will-change:opacity;position:absolute;inset:-2%;border-radius:50%;box-shadow:0 0 70px 10px rgba(225,37,27,.55),inset 0 0 30px rgba(225,37,27,.4);opacity:.01;pointer-events:none}
 #intro .i-boot{position:absolute;top:50%;left:50%;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:var(--signal);box-shadow:0 0 18px 4px rgba(225,37,27,.7);animation:boot 1.1s ease-in-out infinite}
 @keyframes boot{50%{transform:scale(.55);opacity:.5}}
 #intro .i-skip{position:absolute;right:calc(var(--gut-r) + 4px);bottom:calc(22px + env(safe-area-inset-bottom,0px));color:var(--muted);font:500 .82rem var(--f-body);background:none;border:1px solid var(--line);border-radius:999px;padding:8px 14px;cursor:pointer;opacity:0;transition:color .2s,border-color .2s}
@@ -245,7 +246,7 @@ html.intro #hero-title .ln > span{transform:translateY(110%)}
 /* ===== Efeitos globais ===== */
 .progress{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);height:2px;z-index:70;pointer-events:none}
 .progress i{display:block;height:100%;background:linear-gradient(90deg,var(--signal),#ff6a5f);transform-origin:left;transform:scaleX(0)}
-body::after{content:"";position:fixed;inset:-50%;z-index:110;pointer-events:none;opacity:.055;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");animation:grain .9s steps(4) infinite}
+body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.055;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 @keyframes grain{25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-1%,3%)}}
 .top{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
 .top.is-hidden{transform:translateY(calc(-100% - 2px))}
@@ -302,7 +303,7 @@ body::after{content:"";position:fixed;inset:-50%;z-index:110;pointer-events:none
 .final .px-field{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .final .wrap{position:relative}
 
-@media (prefers-reduced-motion:reduce){body::after{animation:none}}
+
 
 /* canvas é elemento "replaced": sem largura/altura explícitas ele usa o tamanho do buffer (tela × pixel ratio),
    o que no iPhone deixava o 3D com quase o dobro da tela e o celular fora do centro */
@@ -348,7 +349,7 @@ body::after{content:"";position:fixed;inset:-50%;z-index:110;pointer-events:none
       <img class="l-word" src="img/lg-word.webp" alt="" draggable="false">
       <img class="l-tag" src="img/lg-tag.webp" alt="" draggable="false">
       <div class="i-scan"></div>
-      <div class="i-beam"></div>
+      <div class="i-beam"><div class="i-sheen"></div></div>
       <div class="i-head"></div>
       <div class="i-px"></div>
     </div>
@@ -650,7 +651,7 @@ const phoneApi = { setModel(){}, setColor(){} };
   const canvas = document.getElementById("stage");
   if (typeof THREE === "undefined") { canvas.remove(); return; }
   let renderer; try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "high-performance" }); } catch (e) { canvas.remove(); return; }
-  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.75));
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.5));   // acima de 1,5 o ganho visual é pequeno e o custo por quadro sobe muito no celular
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.1;
   const scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(30, 1, 0.1, 60);
@@ -857,6 +858,16 @@ const phoneApi = { setModel(){}, setColor(){} };
   const backKey = new THREE.DirectionalLight(0xffffff, 1.6); backKey.position.set(-3, 4, -7); scene.add(backKey);
   const redRim = new THREE.DirectionalLight(0xE1251B, 1.4); redRim.position.set(-6, 1, -2); scene.add(redRim);
   const sweep = new THREE.SpotLight(0xffffff, 90, 30, 0.35, 0.6, 1.4); sweep.position.set(-6, 3, 7); sweep.target = phone; scene.add(sweep);
+
+  // Pré-aquecimento: compila os shaders e sobe as texturas para a GPU agora, com a cortina preta ainda na frente.
+  // Sem isso a compilação acontece no 1º quadro visível do celular, que cai exatamente na entrada do hero (era a travada).
+  window.__phoneReady = (async () => {
+    try {
+      if (renderer.initTexture) renderer.initTexture(tex);
+      if (renderer.compileAsync) await renderer.compileAsync(scene, camera); else renderer.compile(scene, camera);
+      renderer.render(scene, camera);
+    } catch (e) {}
+  })();
 
   let mx = 0, my = 0, pmx = 0, pmy = 0;
   if (finePointer) addEventListener("pointermove", e => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; }, { passive: true });
@@ -1209,33 +1220,33 @@ const WALL = [
       });
       // 4. ícone abre + glitch RGB
       tl.to(logoBox, { rotateX: 0, rotateY: 0, scale: 1, duration: 2, ease: "expo.out" }, .5)
-        .fromTo(icon, { filter: "blur(14px) brightness(2.4)", scale: 1.18 }, { filter: "blur(0px) brightness(1)", scale: 1, duration: 1.2, ease: "expo.out" }, 1.0)
-        .to(st, { r: 90, duration: 1.1, ease: "expo.out", onUpdate: setR }, 1.0)
+        .fromTo(icon, { opacity: 0, scale: 1.18 }, { opacity: 1, scale: 1, duration: 1.2, ease: "expo.out" }, 1.0)
+        .fromTo([icon, ...rgb], { clipPath: "circle(0% at 48% 44%)" }, { clipPath: "circle(72% at 48% 44%)", duration: 1.1, ease: "expo.out" }, 1.0)
         .set(rgb, { opacity: .45 }, 1.42)
         .to(rgb[0], { keyframes: [{ x: -9, y: 2, duration: .05 }, { x: 6, y: -3, duration: .05 }, { x: -4, y: 0, duration: .05 }, { x: 0, y: 0, duration: .06 }] }, 1.42)
         .to(rgb[1], { keyframes: [{ x: 8, y: -2, duration: .05 }, { x: -6, y: 3, duration: .05 }, { x: 3, y: 0, duration: .05 }, { x: 0, y: 0, duration: .06 }] }, 1.42)
         .to(icon, { keyframes: [{ x: 4, skewX: -6, duration: .05 }, { x: -3, skewX: 4, duration: .05 }, { x: 0, skewX: 0, duration: .06 }] }, 1.42)
-        .set(rgb, { opacity: 0 }, 1.64)
+        .set(rgb, { opacity: .01 }, 1.64)
         // 5. letreiro escrito pela barra de scan, slogan sobe
         .set(scan, { opacity: 1 }, 1.62)
         .fromTo(word, { clipPath: "inset(0% 86% 0% 14%)" }, { clipPath: "inset(0% 13% 0% 14%)", duration: .75, ease: "power3.inOut" }, 1.62)
         .fromTo(scan, { left: "14%" }, { left: "87%", duration: .75, ease: "power3.inOut" }, 1.62)
         .to(scan, { opacity: 0, scaleY: .3, duration: .25 }, 2.32)
         .set(word, { clipPath: "inset(0% 0% 0% 0%)" }, 2.4)
-        .fromTo(tag, { opacity: 0, y: 10, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: .7, ease: "power3.out" }, 2.1)
+        .fromTo(tag, { opacity: .01, y: 10 }, { opacity: 1, y: 0, duration: .7, ease: "power3.out" }, 2.1)
         // 6. reflexo e brilho do anel
-        .fromTo(beam, { "--bx": "-120%" }, { "--bx": "120%", duration: 1.05, ease: "power2.inOut" }, 2.2)
-        .fromTo(glow, { opacity: 0, scale: .96 }, { opacity: 1, scale: 1.02, duration: .45, ease: "power2.out" }, 2.3)
-        .to(glow, { opacity: .35, scale: 1, duration: .8, ease: "power2.out" }, 2.75)
+        .fromTo(beam.firstElementChild, { xPercent: -120 }, { xPercent: 120, duration: 1.05, ease: "power2.inOut" }, 2.2)
+        .fromTo(glow, { opacity: .01 }, { opacity: 1, duration: .45, ease: "power2.out" }, 2.3)
+        .to(glow, { opacity: .35, duration: .8, ease: "power2.out" }, 2.75)
         .to({}, { duration: .35 });   // respiro antes de sair
 
       let leaving = false;
       function exit(){
         if (leaving) return; leaving = true;
         tl.progress(1); tl.kill();
-        st.a = 360; setA(); st.r = 100; setR();
-        gsap.set(head, { opacity: 0 }); gsap.set([word], { clipPath: "none" }); gsap.set(tag, { opacity: 1, y: 0, filter: "none" });
-        gsap.set(logoBox, { rotateX: 0, rotateY: 0, scale: 1 }); gsap.set(icon, { filter: "none", scale: 1, x: 0, skewX: 0 });
+        st.a = 360; setA(); gsap.set([icon, ...rgb], { clipPath: "none" });
+        gsap.set(head, { opacity: 0 }); gsap.set([word], { clipPath: "none" }); gsap.set(tag, { opacity: 1, y: 0 });
+        gsap.set(logoBox, { rotateX: 0, rotateY: 0, scale: 1 }); gsap.set(icon, { opacity: 1, scale: 1, x: 0, skewX: 0 });
         PIX.forEach(p => p.el.remove()); streaks.forEach(s => s.remove());
 
         const slot = document.getElementById("logo-slot"), sr = slot.getBoundingClientRect();
@@ -1243,14 +1254,16 @@ const WALL = [
         const out = window.__outTL = gsap.timeline({ onComplete: () => {
           gsap.set("#logo", { opacity: 1 });
           intro.remove(); root.classList.remove("intro"); lenis && lenis.start();
-          ScrollTrigger.refresh();
+          // refresh mede o layout de todos os gatilhos: fica para depois da entrada do hero, num momento ocioso
+          const idle = cb => "requestIdleCallback" in window ? requestIdleCallback(cb, { timeout: 3000 }) : setTimeout(cb, 1500);
+          gsap.delayedCall(1.8, () => idle(() => ScrollTrigger.refresh()));
         } });
         // Flip.fit: calcula a transformação que leva o palco até o tamanho/posição do slot do header e anima até lá
         out.add(Flip.fit(stage, slot, { duration: 1.15, ease: "expo.inOut", absolute: true }), 0)
           .to(glow, { opacity: 0, duration: .4 }, 0)
           .fromTo(bg, { clipPath: `circle(${R}px at ${cx}px ${cy}px)` }, { clipPath: `circle(0px at ${cx}px ${cy}px)`, duration: 1.15, ease: "expo.inOut" }, .05)
           .to([$(".i-skip"), $(".i-count")], { opacity: 0, duration: .3 }, 0)
-          .call(resolve, null, .45);
+          .call(resolve, null, .75);
       }
       intro.addEventListener("click", exit);
       addEventListener("keydown", function k(e){ if (e.key === "Escape") { exit(); removeEventListener("keydown", k); } });
@@ -1260,13 +1273,14 @@ const WALL = [
   // espera fontes e camadas da logo decodificadas (no máximo 2,5 s) para a animação não engasgar
   const layers = [...document.querySelectorAll("#intro img")];
   const ready = Promise.race([
-    Promise.all([document.fonts.ready, ...layers.map(i => (i.decode ? i.decode() : Promise.resolve()).catch(() => {}))]),
-    new Promise(r => setTimeout(r, 2500))
+    Promise.all([document.fonts.ready, window.__phoneReady, ...layers.map(i => (i.decode ? i.decode() : Promise.resolve()).catch(() => {}))]),
+    new Promise(r => setTimeout(r, 3000))
   ]);
-  ready.then(runIntro).then(() => {
+  // ordem: tudo que é pesado (shaders, gatilhos de scroll, medição de layout) roda com a tela preta;
+  // depois o intro anima sozinho, sem trabalho concorrendo no mesmo quadro
+  ready.then(() => { setupScroll(); return runIntro(); }).then(() => {
     // sem intro (movimento reduzido ou rede de segurança disparou): o hero já está visível, só liga o celular
     if (!reduce && !window.__introSkipped) heroIn(); else Object.assign(enter, { s: 1, o: 1, ry: 0, light: 0 });
-    setupScroll();
   });
 
   function setupScroll(){
